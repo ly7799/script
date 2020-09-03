@@ -12,8 +12,10 @@ do
 
     echo "进入目录$line"
     cd $line
+    branch=$(git branch -l | grep "^*")
+    branch_name="${branch:2}"
     git remote -v
-    git push origin master
+    git push origin $branch_name
     echo $line
     echo "退出当前目录$pwd"
     cd ..
