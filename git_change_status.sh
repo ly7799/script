@@ -10,15 +10,16 @@ echo $project_path
 echo $project_name
 
 #建立缓存文件
-#touch templefile
 
-#pull函数
-pull_branch(){
+#status函数
+status_branch(){
         cd $line
         branch=$(git branch -l | grep "^*")
         branch_name="${branch:2}"
         git remote -v
-        git pull origin $branch_name
+        git status
+        echo "分支情况:$branch_name"
+        git branch -a -vv
         echo $line
         echo "退出当前目录$line"
         cd ..
@@ -36,7 +37,7 @@ do
         dir2=$(ls -l $pwd |awk '/^d/ {print $NF}')
         for line in $dir2
             do
-                pull_branch
+                status_branch
             done
 
     else
@@ -44,7 +45,9 @@ do
         branch=$(git branch -l | grep "^*")
         branch_name="${branch:2}"
         git remote -v
-        git pull origin $branch_name
+        git status
+        echo "分支情况:$branch_name"
+        git branch -a -vv
         echo $line
         echo "退出当前目录$line"
     fi
